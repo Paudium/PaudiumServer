@@ -1,29 +1,59 @@
-const { ApolloServer, gql } = require("apollo-server-express");
-const express = require("express");
-const mongoose = require("mongoose");
-const typeDefs = require("./typeDefs");
-const resolvers = require("./resolvers");
+const { ApolloServer, PubSub } = require('apollo-server');
+const mongoose = require('mongoose');
 
-const PORT = process.env.PORT || 4000;
+const typeDefs = require('./typeDefs');
+const resolvers = require('./resolvers');
+const { MONGODB } = require('../config');
 
-const startServer = () => {
-  const app = express();
+const pubsub = new PubSub();
 
-  mongoose.connect("mongodb://localhost:27017/test", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
+const PORT = process.env.port || 5000;
 
-  const server = new ApolloServer({
-    typeDefs,
-    resolvers,
-  });
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context: ({ req }) => ({ req, pubsub })
+});
 
-  server.applyMiddleware({ app });
+mongoose
+  .connect(MONGODB, { useNewUrlParser: true })
+  .then(() => {
+    console.log('MongoDB Connected');
+    return server.listen({ port: PORT });
+  })
+  .then((res) => {
+    console.log(`Server running at ${res.url}`);
+  })
+  .catch(err => {
+    console.error(err)
+  })
 
-  app.listen({ port: PORT }, () =>
-    console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
-  );
-};
+// const { ApolloServer, gql } = require("apollo-server-express");
+// const express = require("express");
+// const mongoose = require("mongoose");
+// const typeDefs = require("./typeDefs");
+// const resolvers = require("./resolvers");
 
-startServer();
+// const PORT = process.env.PORT || 4000;
+
+// const startServer = () => {
+//   const app = express();
+
+//   mongoose.connect("mongodb://localhost:27017/test", {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//   });
+
+//   const server = new ApolloServer({
+//     typeDefs,
+//     resolvers,
+//   });
+
+//   server.applyMiddleware({ app });
+
+//   app.listen({ port: PORT }, () =>
+//     console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
+//   );
+// };
+
+// startServer();
