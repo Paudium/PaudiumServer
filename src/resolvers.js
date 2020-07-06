@@ -1,12 +1,12 @@
-import { AuthenticationError, UserInputError } from "apollo-server";
-import { Cat } from "./models/Cat";
-import { Podcast } from "./models/Podcast";
-import { Chapter } from "./models/Chapter";
+const { AuthenticationError, UserInputError } = require("apollo-server");
+const Cat = require("./models/Cat");
+const Podcast = require("./models/Podcast");
+const Chapter = require("./models/Chapter");
 
 let Parser = require("rss-parser");
 let parser = new Parser();
 
-export const resolvers = {
+module.exports = {
   Query: {
     hello: () => "looks greate",
     cats: () => Cat.find(),
@@ -17,14 +17,14 @@ export const resolvers = {
         if (podcast) {
           return podcast;
         } else {
-          throw new Error('Post not found');
+          throw new Error("Post not found");
         }
       } catch (err) {
         throw new Error(err);
       }
     },
 
-    getPodcastByTitle: ()=>Podcast.find({ podTitle: /john/i }),
+    getPodcastByTitle: () => Podcast.find({ podTitle: /john/i }),
     chapters: () => Chapter.findById(postId),
   },
 
@@ -88,26 +88,26 @@ export const resolvers = {
       } else throw new UserInputError("Podcast not found");
     },
 
-    likePodcast: async (_, { podcastId })=> {
-        // const { username } = checkAuth(context);
-        const username = "tom";
-        const podcast = await Podcast.findById(podcastId);
-        if (podcast) {
+    likePodcast: async (_, { podcastId }) => {
+      // const { username } = checkAuth(context);
+      const username = "tom";
+      const podcast = await Podcast.findById(podcastId);
+      if (podcast) {
         //   if (post.likes.find((like) => like.username === username)) {
         //     // Post already likes, unlike it
         //     post.likes = post.likes.filter((like) => like.username !== username);
         //   } else {
-            // Not liked, like post
-            podcast.likePodcasts.push({
-              username,
-              createdAt: new Date().toISOString()
-            });
+        // Not liked, like post
+        podcast.likePodcasts.push({
+          username,
+          createdAt: new Date().toISOString(),
+        });
         //   }
-  
-          await podcast.save();
-          return podcast;
-        } else throw new UserInputError('Post not found');
-      },
+
+        await podcast.save();
+        return podcast;
+      } else throw new UserInputError("Post not found");
+    },
 
     createCat: async (_, { name }) => {
       const kitty = new Cat({ name });

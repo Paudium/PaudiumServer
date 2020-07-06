@@ -1,13 +1,10 @@
-import { ApolloServer, gql } from "apollo-server-express";
-import express from "express";
-import mongoose from "mongoose";
-import { typeDefs } from "./typeDefs";
-import { resolvers } from "./resolvers";
+const { ApolloServer, gql } = require("apollo-server-express");
+const express = require("express");
+const mongoose = require("mongoose");
+const typeDefs = require("./typeDefs");
+const resolvers = require("./resolvers");
 
-
-const PORT = process.env.PORT||4000;
-
-console.log(" sever running",process.env.NODE_ENV);
+const PORT = process.env.PORT || 4000;
 
 const startServer = () => {
   const app = express();

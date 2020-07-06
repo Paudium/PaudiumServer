@@ -1,6 +1,6 @@
-import { gql } from "apollo-server-express";
+const { gql } = require("apollo-server-express");
 
-export const typeDefs = gql`
+module.exports = gql`
   type Podcast {
     id: ID!
     podTitle: String!
@@ -13,11 +13,11 @@ export const typeDefs = gql`
     type: String!
     createdAt: String!
     chapters: [Chapter]!
-    likePodcasts:[LikePodcast]!
+    likePodcasts: [LikePodcast]!
   }
 
   type LikePodcast {
-    id:ID!
+    id: ID!
     createdAt: String!
     userName: String!
   }
@@ -83,8 +83,8 @@ export const typeDefs = gql`
     hello: String!
     cats: [Cat!]!
     podcasts: [Podcast!]!
-    getPodcast(podcastId:ID!):Podcast!
-    getPodcastByTitle:[Podcast!]!
+    getPodcast(podcastId: ID!): Podcast!
+    getPodcastByTitle: [Podcast!]!
     chapters: [Chapter!]!
   }
 `;

@@ -1,3 +1,3 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
-export const Cat = mongoose.model("Cat",{name:String});
+module.exports = mongoose.model("Cat",{name:String});

@@ -1,6 +1,6 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
-export const Podcast = mongoose.model("Podcast",{
+module.exports = mongoose.model("Podcast",{
     podTitle: String,
     podURL: String,
     imageURL:String,

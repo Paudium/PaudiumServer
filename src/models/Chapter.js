@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
+const mongoose = require('mongoose');
 
-export const Chapter = mongoose.model("Chapter", {
+module.exports =  mongoose.model("Chapter", {
   title: String,
   startTimeStamp: String,
   endTimeStamp: String,
