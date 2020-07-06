@@ -1,0 +1,1 @@
+"start": "NODE_ENV=devlopment nodemon --exec babel-node src/index.js"
