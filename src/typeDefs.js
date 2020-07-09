@@ -1,13 +1,22 @@
 const { gql } = require("apollo-server-express");
 
 module.exports = gql`
+  type PodGroup {
+    id: ID!
+    podTitle: String!
+    rssURL: String!
+    podImage: String!
+    category: String!
+    podcasts: [Podcast]!
+  }
+
   type Podcast {
     id: ID!
     podTitle: String!
     podURL: String!
     imageURL: String!
-    rssURL: String!
     title: String!
+    description: String!
     length: String!
     audioURL: String!
     type: String!
@@ -52,7 +61,19 @@ module.exports = gql`
   }
 
   type Mutation {
-    createPodcast(rssURL: String!): [Podcast]!
+    createPodGroup(rssURL: String!, category: String!): [PodGroup]!
+
+    createPodcast(
+      podTitle: String!
+      podURL: String!
+      imageURL: String!
+      title: String!
+      description: String!
+      length: String!
+      audioURL: String!
+      type: String!
+      createdAt: String!
+    ): [Podcast]!
     deletePost(postId: ID!): String!
 
     createChapter(
@@ -82,6 +103,11 @@ module.exports = gql`
   type Query {
     hello: String!
     cats: [Cat!]!
+
+    podgroups: [PodGroup!]!
+    podgroup(podgroupId: ID!): PodGroup
+    getpodGroupByCategory(category: String!): [PodGroup!]!
+
     podcasts: [Podcast!]!
     getPodcast(podcastId: ID!): Podcast!
     getPodcastByTitle: [Podcast!]!

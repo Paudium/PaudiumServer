@@ -2,6 +2,7 @@ const { AuthenticationError, UserInputError } = require("apollo-server");
 const Cat = require("./models/Cat");
 const Podcast = require("./models/Podcast");
 const Chapter = require("./models/Chapter");
+const PodGroup = require("./models/PodGroup");
 
 let Parser = require("rss-parser");
 let parser = new Parser();
@@ -10,6 +11,35 @@ module.exports = {
   Query: {
     hello: () => "looks greate",
     cats: () => Cat.find(),
+
+    podgroups: () => PodGroup.find(),
+    async podgroup(_, { podgroupId }) {
+      try {
+        const podGroup = await PodGroup.findById(podgroupId);
+        if (podGroup) {
+          return podGroup;
+        } else {
+          throw new Error("PodGroup not found");
+        }
+      } catch (err) {
+        throw new Error(err);
+      }
+    },
+
+    async getpodGroupByCategory(_, { category }) {
+      try {
+        const podGroup = (await PodGroup.find()).filter(
+          (item) => item.category === category
+        );
+        if (podGroup) {
+          return podGroup;
+        }
+      } catch (err) {
+        throw new Error(err);
+      }
+    },
+    // getPodGroupByCategory: ()=>_.mapValues(_.groupBy(PodGroup,'category'),clist=>clist.map(item=>_.omit(item,'category'))),
+
     podcasts: () => Podcast.find(),
     async getPodcast(_, { podcastId }) {
       try {
@@ -29,22 +59,57 @@ module.exports = {
   },
 
   Mutation: {
-    createPodcast: async (_, { rssURL }) => {
+    // createPodcast: async (_, { rssURL }) => {
+    //   let feed = await parser.parseURL(rssURL);
+
+    //   let newPodcast = await feed.items.map((item) => ({
+    //     podTitle: feed.image.title,
+    //     podURL: feed.image.link,
+    //     imageURL: feed.image.url,
+    //     rssURL: rssURL,
+    //     title: item.title,
+    //     description:item.itunes.summary,
+    //     audioURL: item.enclosure.url,
+    //     length: item.itunes.duration,
+    //     type: item.enclosure.type,
+    //     createdAt: new Date().toISOString(),
+    //   }));
+    //   await PodGroup.insertMany(newPodcast);
+    //   return newPodcast;
+    // },
+
+    createPodGroup: async (_, { rssURL, category }) => {
       let feed = await parser.parseURL(rssURL);
-      let newPodcast = await feed.items.map((item) => ({
+
+      let basicInfo = {
+        podTitle: feed.title,
+        rssURL: rssURL,
+        podImage: feed.image.url,
+        category: category,
+      };
+
+
+
+      let newPodcasts = await feed.items.map((item) => ({
         podTitle: feed.image.title,
         podURL: feed.image.link,
         imageURL: feed.image.url,
         rssURL: rssURL,
         title: item.title,
+        description: item.itunes.summary,
         audioURL: item.enclosure.url,
-        length: item.enclosure.length,
+        length: item.itunes.duration,
         type: item.enclosure.type,
         createdAt: new Date().toISOString(),
       }));
 
-      await Podcast.insertMany(newPodcast);
-      return newPodcast;
+      let myPodcast = await Podcast.insertMany(newPodcasts);
+      let newPodGroup = new PodGroup({
+        ...basicInfo,
+        podcasts: myPodcast,
+      });
+      const podGroup = newPodGroup.save();
+      return podGroup;
     },
 
     createChapter: async (

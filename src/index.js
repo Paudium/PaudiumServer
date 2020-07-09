@@ -7,13 +7,14 @@ const { MONGODB } = require('../config.js');
 
 const pubsub = new PubSub();
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 4000;
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
   context: ({ req }) => ({ req, pubsub })
 });
+
 
 mongoose
   .connect(MONGODB, { useNewUrlParser: true,useUnifiedTopology: true })

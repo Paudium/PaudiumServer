@@ -6,6 +6,7 @@ module.exports = mongoose.model("Podcast",{
     imageURL:String,
     rssURL: String,
     title: String,
+    description:String,
     audioURL:String,
     length: String,
     type: String,
