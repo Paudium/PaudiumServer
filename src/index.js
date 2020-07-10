@@ -2,7 +2,7 @@ const { ApolloServer, PubSub } = require('apollo-server');
 const mongoose = require('mongoose');
 
 const typeDefs = require('./typeDefs');
-const resolvers = require('./resolvers');
+const resolvers = require('./resolvers')
 const { MONGODB } = require('../config.js');
 
 const pubsub = new PubSub();
@@ -28,5 +28,3 @@ mongoose
   .catch(err => {
     console.error(err)
   })
-
-  //I've added this line forr test

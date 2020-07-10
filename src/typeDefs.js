@@ -23,6 +23,7 @@ module.exports = gql`
     createdAt: String!
     chapters: [Chapter]!
     likePodcasts: [LikePodcast]!
+    notes: [Note]!
   }
 
   type LikePodcast {
@@ -47,6 +48,20 @@ module.exports = gql`
     userName: String!
   }
 
+  type User {
+    id: ID!
+    email: String!
+    token: String!
+    username: String!
+    createdAt: String!
+  }
+  input RegisterInput {
+    username: String!
+    password: String!
+    confirmPassword: String!
+    email: String!
+  }
+
   type Note {
     id: ID!
     created: String!
@@ -61,8 +76,10 @@ module.exports = gql`
   }
 
   type Mutation {
-    createPodGroup(rssURL: String!, category: String!): [PodGroup]!
+    register(registerInput: RegisterInput): User!
+    login(email: String!, password: String!): User!
 
+    createPodGroup(rssURL: String!, category: String!): [PodGroup]!
     createPodcast(
       podTitle: String!
       podURL: String!
@@ -74,7 +91,6 @@ module.exports = gql`
       type: String!
       createdAt: String!
     ): [Podcast]!
-    deletePost(postId: ID!): String!
 
     createChapter(
       startTimeStamp: String!
@@ -110,7 +126,6 @@ module.exports = gql`
 
     podcasts: [Podcast!]!
     getPodcast(podcastId: ID!): Podcast!
-    getPodcastByTitle: [Podcast!]!
     chapters: [Chapter!]!
   }
 `;

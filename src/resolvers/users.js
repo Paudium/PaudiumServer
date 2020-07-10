@@ -5,10 +5,10 @@ const { UserInputError } = require('apollo-server');
 const {
   validateRegisterInput,
   validateLoginInput
-} = require('../../util/validators');
+} = require('../util/validators');
 const { SECRET_KEY } = require('../../config');
-const User = require('../../models/User');
-
+// const User = require('../../models/User');
+const User = require('../models/User');
 function generateToken(user) {
   return jwt.sign(
     {
@@ -23,14 +23,14 @@ function generateToken(user) {
 
 module.exports = {
   Mutation: {
-    async login(_, { username, password }) {
-      const { errors, valid } = validateLoginInput(username, password);
+    async login(_, { email, password }) {
+      const { errors, valid } = validateLoginInput(email, password);
 
       if (!valid) {
-        throw new UserInputError('Errors', { errors });
+        throw new UserInputError('  ', { errors });
       }
 
-      const user = await User.findOne({ username });
+      const user = await User.findOne({ email });
 
       if (!user) {
         errors.general = 'User not found';
@@ -69,10 +69,17 @@ module.exports = {
       }
       // TODO: Make sure user doesnt already exist
       const user = await User.findOne({ username });
+      const userByEmail = await User.findOne({email});
       if (user) {
         throw new UserInputError('Username is taken', {
           errors: {
             username: 'This username is taken'
+          }
+        });
+      }else if (userByEmail) {
+        throw new UserInputError('This email was used.', {
+          errors: {
+            username: 'This email was used.'
           }
         });
       }

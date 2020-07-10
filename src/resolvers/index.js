@@ -1,21 +1,27 @@
-const postsResolvers = require('./chapters');
-const usersResolvers = require('./users');
-const commentsResolvers = require('./comments');
+const podGroupResolver = require("./PodGroup");
+const podcastResolver = require("./podcasts");
+const chapterResover = require("./chapters");
+const noteResolver = require("./Note");
+
+const usersResolvers = require("./users");
 
 module.exports = {
-  Post: {
-    likeCount: (parent) => parent.likes.length,
-    commentCount: (parent) => parent.comments.length
-  },
+  // Post: {
+  //   likeCount: (parent) => parent.likes.length,
+  //   commentCount: (parent) => parent.comments.length,
+  // },
   Query: {
-    ...postsResolvers.Query
+    // ...postsResolvers.Query
+    ...podGroupResolver.Query,
+    ...podcastResolver.Query,
+    ...chapterResover.Query,
   },
   Mutation: {
     ...usersResolvers.Mutation,
-    ...postsResolvers.Mutation,
-    ...commentsResolvers.Mutation
+    ...podGroupResolver.Mutation,
+    ...podcastResolver.Mutation,
+    ...chapterResover.Mutation,
+    ...noteResolver.Mutation,
   },
-  Subscription: {
-    ...postsResolvers.Subscription
-  }
+
 };
