@@ -22,6 +22,7 @@
     "apollo-server-express": "^2.15.1",
     "express": "^4.17.1",
     "graphql": "^15.2.0",
+    "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.19",
     "mongoose": "^5.9.21",
     "rss-parser": "^3.8.0"
