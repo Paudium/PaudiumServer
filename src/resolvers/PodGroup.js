@@ -1,4 +1,5 @@
 const PodGroup = require("../models/PodGroup");
+const Podcast = require ("../models/Podcast");
 
 let Parser = require("rss-parser");
 let parser = new Parser();

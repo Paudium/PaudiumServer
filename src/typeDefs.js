@@ -79,7 +79,7 @@ module.exports = gql`
     register(registerInput: RegisterInput): User!
     login(email: String!, password: String!): User!
 
-    createPodGroup(rssURL: String!, category: String!): [PodGroup]!
+    createPodGroup(rssURL: String!, category: String!):PodGroup!
     createPodcast(
       podTitle: String!
       podURL: String!

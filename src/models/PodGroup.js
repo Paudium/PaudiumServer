@@ -11,6 +11,7 @@ module.exports = mongoose.model("PodGroup",{
         {
             podTitle:String,
             podURL:String,
+            imageURL:String,
             title:String,
             description: String,
             length: String,
