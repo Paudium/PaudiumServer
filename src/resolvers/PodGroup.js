@@ -1,5 +1,5 @@
 const PodGroup = require("../models/PodGroup");
-const Podcast = require("../models/Podcast");
+const Podcast = require ("../models/Podcast");
 
 let Parser = require("rss-parser");
 let parser = new Parser();
@@ -7,6 +7,20 @@ let parser = new Parser();
 module.exports = {
   Query: {
     podgroups: () => PodGroup.find().limit(1),
+
+    async getCategories() {
+      try {
+        const podCategories = await PodGroup.find().distinct('category');
+        if (podCategories) {
+          return podCategories;
+        } else {
+          throw new Error("PodGroup not found");
+        }
+      } catch (err) {
+        throw new Error(err);
+      }
+    },
+
     async podgroup(_, { podgroupId }) {
       try {
         const podGroup = await PodGroup.findById(podgroupId);
@@ -44,14 +58,14 @@ module.exports = {
         category: category,
       };
 
-      let newPodGroupd = new PodGroup({
+      let newPodGroup = new PodGroup({
         podTitle: feed.title,
         rssURL: rssURL,
         podImage: feed.image.url,
         category: category,
       });
 
-      let podGroup = newPodGroupd.save();
+      let podGroup = newPodGroup.save();
 
       let newPodcasts = await feed.items.map((item) => ({
         podTitle: feed.image.title,
