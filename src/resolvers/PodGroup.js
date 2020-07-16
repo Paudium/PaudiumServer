@@ -6,7 +6,7 @@ let parser = new Parser();
 
 module.exports = {
   Query: {
-    podgroups: () => PodGroup.find(),
+    podgroups: () => PodGroup.find().limit(1),
     async podgroup(_, { podgroupId }) {
       try {
         const podGroup = await PodGroup.findById(podgroupId);
@@ -66,7 +66,7 @@ module.exports = {
       await Podcast.insertMany(newPodcasts);
 
       newPodcasts.map(async (podcast) => {
-        await PodGroup.updateMany(PodGroup.find(), {
+        await PodGroup.updateMany(PodGroup.findOneAndUpdate({rssURL:rssURL}), {
           $push: { podcasts: podcast },
         });
       });

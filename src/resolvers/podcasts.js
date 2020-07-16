@@ -6,7 +6,7 @@ let parser = new Parser();
 
 module.exports = {
   Query: {
-    podcasts: () => Podcast.find(),
+    podcasts: () => Podcast.find().limit(10),
     async getPodcast(_, { podcastId }) {
       try {
         const podcast = await Podcast.findById(podcastId);
@@ -22,17 +22,6 @@ module.exports = {
     chapters: () => Chapter.findById(postId),
   },
   Mutation: {
-    createPodcastInPodGroup: async (_, { podTitle }) => {
-      let podcast = { podTitle };
-
-      console.log("podcast object", podcast);
-
-      const podGroup = await PodGroup.updateMany(PodGroup.find(), {
-        $push: { podcasts: podcast },
-      });
-      return podGroup;
-    },
-
     likePodcast: async (_, { podcastId }) => {
       // const { username } = checkAuth(context);
       const username = "tom";
