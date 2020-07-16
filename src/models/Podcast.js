@@ -16,12 +16,12 @@ module.exports = mongoose.model("Podcast",{
             title:String,
             startTimeStamp: String,
             endTimeStamp: String
-        }
+        },
     ],
     likePodcasts:[
         {
             createdAt:String,
             userName:String,
-        }
+        },
     ]
 });

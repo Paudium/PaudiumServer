@@ -1,5 +1,5 @@
 const PodGroup = require("../models/PodGroup");
-const Podcast = require ("../models/Podcast");
+const Podcast = require("../models/Podcast");
 
 let Parser = require("rss-parser");
 let parser = new Parser();
@@ -44,25 +44,33 @@ module.exports = {
         category: category,
       };
 
+      let newPodGroupd = new PodGroup({
+        podTitle: feed.title,
+        rssURL: rssURL,
+        podImage: feed.image.url,
+        category: category,
+      });
+
+      let podGroup = newPodGroupd.save();
+
       let newPodcasts = await feed.items.map((item) => ({
         podTitle: feed.image.title,
         podURL: feed.image.link,
         imageURL: feed.image.url,
-        rssURL: rssURL,
         title: item.title,
         description: item.itunes.summary,
         audioURL: item.enclosure.url,
         length: item.itunes.duration,
-        type: item.enclosure.type,
-        createdAt: new Date().toISOString(),
       }));
 
-      let myPodcast = await Podcast.insertMany(newPodcasts);
-      let newPodGroup = new PodGroup({
-        ...basicInfo,
-        podcasts: myPodcast,
+      await Podcast.insertMany(newPodcasts);
+
+      newPodcasts.map(async (podcast) => {
+        await PodGroup.updateMany(PodGroup.find(), {
+          $push: { podcasts: podcast },
+        });
       });
-      const podGroup = newPodGroup.save();
+
       return podGroup;
     },
   },

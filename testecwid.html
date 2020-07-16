@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      /*Search bar property*/
+
+input.ecwid-search-widget__input[type="text"]{
+border-radius: 4px !important;
+background-color:rgba(255,255,255,0.2);
+border-color:rgba(255,255,255,0.2);
+color:#FFF;
+}
+
+.ecwid div.ecwid-minicart-clickArea:after {
+    display: block;
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    top: 5px;
+    right: 20px;
+    font-size: 1px;
+       background: url(https://monosnap.com/file/vwnrGYz9qBrLvfXqfqkrfegcDj0PbG.png) no-repeat;
+}
+
+/* "Search" button styles */
+button.ecwid-search-widget__btn {
+
+}
+
+
+
+
+/* Product sku */
+div.ecwid-productBrowser-sku {
+    font: normal 13px tahoma, geneva, verdana, sans-serif;
+    color: #FFFFFF;
+	word-wrap: break-word;
+}
+
+/* Product price */
+html#ecwid_html body#ecwid_body .ec-size .ec-store *{
+color:#FFFFFF;
+}
+
+
+/* Button color*/
+html#ecwid_html body#ecwid_body .ec-size .ec-store .form-control:not(.form-control--loading) .form-control__button{
+background-color: #1E61B9;
+}
+
+/* Text color*/
+
+html#ecwid_html body#ecwid_body .ec-size .ec-store .ec-text-muted{
+color:#FFFFFF;
+}
+
+/* Link Color */
+
+html#ecwid_html body#ecwid_body .ec-size .ec-store .ec-link--muted, html#ecwid_html body#ecwid_body .ec-size .ec-store .ec-link--muted-visited{
+color:#FFF
+}
+
+/*name color*/
+
+html#ecwid_html body#ecwid_body .ec-size .ec-store .grid-product__title-inner{
+color:#FFF
+}
+
+
+/*placeholder color*/
+
+::placeholder {
+  color: white;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+ color: white;
+ opacity: 1; /* Firefox */
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+ color: white;
+ opacity: 1; /* Firefox */
+}
+
+/* Bag Icon*/
+html#ecwid_html body#ecwid_body .ec-minicart--xs .ec-minicart__counter::after{
+background-color: #1E61B9;
+}
+
+/* remove search tool box*/
+
+html#ecwid_html body#ecwid_body .ec-size .ec-store .search--has-results {
+    overflow: visible;
+    min-height: 0;
+    display: none;
+}
+
+html#ecwid_html body#ecwid_body .ec-size .ec-store .ec-cart-item-sum--items .form-control__select-text {
+    display: inline-block;
+    color: #FFF;
+}
+
+html#ecwid_html body#ecwid_body .ec-size .ec-store .ec-link--muted, html#ecwid_html body#ecwid_body .ec-size .ec-store .ec-link--muted:visited{
+color:#FFF;
+}
+
+
+html#ecwid_html body#ecwid_body .ec-size .ec-store .form-control__text, html#ecwid_html body#ecwid_body .ec-size .ec-store .form-control__textarea {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    border: 1px solid rgba(109,109,229,0.935);
+    border-radius: 3px;
+    outline: none;
+    background-color: transparent;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.08) inset;
+    color: rgba(224, 220, 220, 0.87);
+    transition: border-color .15s ease-out 0s;
+    -webkit-appearance: none;
+    line-height: 1.4;
+}
+    </style>
+  </head>
+  <body>
+    <div id="my-store-32329017"></div>
+    <div id="my-categories-32329017"></div>
+    <div id="my-search-32329017"></div>
+    <div class="ec-cart-widget"></div>
+
+    <script>
+      window.ecwid_script_defer = true;
+
+      var script = document.createElement("script");
+      script.charset = "utf-8";
+      script.type = "text/javascript";
+      script.src = "https://app.ecwid.com/script.js?32329017";
+
+      document.getElementById("my-store-32329017").appendChild(script);
+
+      window._xnext_initialization_scripts = [
+        // Storefront widget
+        {
+          widgetType: "ProductBrowser",
+          id: "my-store-32329017",
+          arg: ["id=my-store-32329017"],
+        },
+        // Horizontal categories widget
+        {
+          widgetType: "CategoriesV2",
+          id: "id=my-categories-32329017",
+          arg: ["id=my-categories-32329017"],
+        },
+        // Search widget
+        {
+          widgetType: "SearchWidget",
+          id: "my-search-32329017",
+          arg: ['"id=my-search-32329017"'],
+        },
+        // 'Buy now' button for product
+        // {
+        //   widgetType: "Product",
+        //   id: "Product-1",
+        // },
+  ];
+
+      // Initialize Minicart Widget. A div with class '.ec-cart-widget' must be present on a page
+
+      Ecwid.init();
+    </script>
+  </body>
+</html>
+
+<div class="ec-cart-widget"></div>
+<div>
+<script data-cfasync="false" type="text/javascript" src="https://app.ecwid.com/script.js?32329017&data_platform=code&data_date=2020-07-13" charset="utf-8"></script>
+<script type="text/javascript">Ecwid.init();</script>
+</div>

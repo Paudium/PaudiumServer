@@ -6,7 +6,6 @@ module.exports = mongoose.model("PodGroup",{
     podImage:String,
     rssURL: String,
     category: String,
-   
     podcasts:[
         {
             podTitle:String,
@@ -14,10 +13,8 @@ module.exports = mongoose.model("PodGroup",{
             imageURL:String,
             title:String,
             description: String,
-            length: String,
             audioURL: String,
-            type: String,
-            createdAt: String,
+            length: String,
 
         }
     ],

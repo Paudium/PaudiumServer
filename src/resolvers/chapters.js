@@ -1,5 +1,5 @@
-const Chaper = require("../models/Chapter");
-const Podcast  = require("../models/Podcast");
+const Chapter = require("../models/Chapter");
+const Podcast = require("../models/Podcast");
 
 module.exports = {
   Query: {},
@@ -25,16 +25,10 @@ module.exports = {
       const podcasts = await Podcast.find();
 
       if (podcasts) {
-        // let newPodcast = podcasts.map((podcast) => ({
-        //   ...podcast,
-        //   chapters: [startTimeStamp, endTimeStamp, title],
-        // }));
-        // await podcast.save();
         let chapter = { startTimeStamp, endTimeStamp, title };
-        // podcasts.chapters.push({ startTimeStamp, endTimeStamp, title });
-        // podcasts.save();
+        console.log(chapter);
         await Podcast.updateMany(Podcast.find(), {
-          $push:{chapters: chapter},  
+          $push: { chapters: chapter },
         });
 
         return podcasts;

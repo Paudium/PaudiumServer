@@ -17,10 +17,8 @@ module.exports = gql`
     imageURL: String!
     title: String!
     description: String!
-    length: String!
     audioURL: String!
-    type: String!
-    createdAt: String!
+    length: String!
     chapters: [Chapter]!
     likePodcasts: [LikePodcast]!
     notes: [Note]!
@@ -70,16 +68,30 @@ module.exports = gql`
     body: String!
   }
 
-  type Cat {
+  type prodUser {
     id: ID!
     name: String!
+    email: String!
   }
 
+  type Order {
+    id: ID!
+    userName: String!
+    userEmail: String!
+    products: [Product]!
+  }
+  type Product {
+    id: ID!
+    name: String!
+    price: String!
+  }
   type Mutation {
     register(registerInput: RegisterInput): User!
     login(email: String!, password: String!): User!
 
-    createPodGroup(rssURL: String!, category: String!):PodGroup!
+    createPodGroup(rssURL: String!, category: String!): PodGroup!
+    createPodcastInPodGroup(podTitle: String!): PodGroup!
+
     createPodcast(
       podTitle: String!
       podURL: String!
@@ -112,13 +124,10 @@ module.exports = gql`
     dislikePodcast(podcastID: ID!): Podcast!
     likeChapter(chapterId: ID!): Chapter!
     dislikeChapter(chapterID: ID!): Chapter!
-
-    createCat(name: String!): Cat!
   }
 
   type Query {
     hello: String!
-    cats: [Cat!]!
 
     podgroups: [PodGroup!]!
     podgroup(podgroupId: ID!): PodGroup
