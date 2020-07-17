@@ -1,5 +1,5 @@
 const PodGroup = require("../models/PodGroup");
-const Podcast = require ("../models/Podcast");
+const Podcast = require("../models/Podcast");
 
 let Parser = require("rss-parser");
 let parser = new Parser();
@@ -10,7 +10,7 @@ module.exports = {
 
     async getCategories() {
       try {
-        const podCategories = await PodGroup.find().distinct('category');
+        const podCategories = await PodGroup.find().distinct("category");
         if (podCategories) {
           return podCategories;
         } else {
@@ -80,9 +80,12 @@ module.exports = {
       await Podcast.insertMany(newPodcasts);
 
       newPodcasts.map(async (podcast) => {
-        await PodGroup.updateMany(PodGroup.findOneAndUpdate({rssURL:rssURL}), {
-          $push: { podcasts: podcast },
-        });
+        await PodGroup.updateMany(
+          PodGroup.findOneAndUpdate({ rssURL: rssURL }),
+          {
+            $push: { podcasts: podcast },
+          }
+        );
       });
 
       return podGroup;

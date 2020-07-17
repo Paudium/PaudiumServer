@@ -80,7 +80,7 @@ module.exports = {
       await Podcast.insertMany(newPodcasts);
 
       newPodcasts.map(async (podcast) => {
-        await PodGroup.updateMany(PodGroup.findOneAndUpdate({rssURL:rssURL}), {
+        await PodGroup.updateOne(PodGroup.findOne({rssURL:rssURL}), {
           $push: { podcasts: podcast },
         });
       });
