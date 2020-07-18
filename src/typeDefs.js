@@ -133,6 +133,7 @@ module.exports = gql`
     podgroup(podgroupId: ID!): PodGroup
     getpodGroupByCategory(category: String!): [PodGroup!]!
     getCategories: [String]
+    searchPodTitle(text:String!):[PodGroup]!
 
     podcasts: [Podcast!]!
     getPodcast(podcastId: ID!): Podcast!

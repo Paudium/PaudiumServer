@@ -25,6 +25,6 @@ var cars = [
 ];
 
 var grouped = _.mapValues(_.groupBy(cars, 'make'),
-                          clist => clist.map(car => _.omit(car, 'make')));
+    clist => clist.map(car => _.omit(car, 'make')));
 
 console.log(grouped);
