@@ -130,7 +130,7 @@ module.exports = gql`
     hello: String!
 
     podgroups: [PodGroup!]!
-    podgroup(podgroupId: ID!): PodGroup
+    podgroup(podgroupId: ID!): PodGroup!
     getpodGroupByCategory(category: String!): [PodGroup!]!
     getCategories: [String]
     searchPodTitle(text:String!):[PodGroup]!
@@ -138,5 +138,8 @@ module.exports = gql`
     podcasts: [Podcast!]!
     getPodcast(podcastId: ID!): Podcast!
     chapters: [Chapter!]!
+    # fields: {type: [String], text: true}
   }
+
+  
 `;

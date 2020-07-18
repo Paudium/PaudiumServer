@@ -1,1 +1,2 @@
 "start": "NODE_ENV=devlopment nodemon --exec babel-node src/index.js"
+mongo "mongodb+srv://cluster0.alubv.mongodb.net/paudiumdb" --username paulus 
