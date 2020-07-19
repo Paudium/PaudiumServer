@@ -82,7 +82,9 @@ module.exports = {
         length: item.itunes.duration,
       }));
 
-      await Podcast.insertMany(newPodcasts);
+      const podcasts =  await Podcast.insertMany(newPodcasts);
+
+      console.log(podcasts);
 
       newPodcasts.map(async (podcast) => {
         await PodGroup.updateOne(PodGroup.findOne({ rssURL: rssURL }), {

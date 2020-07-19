@@ -13,12 +13,13 @@ module.exports = {
         if (podcast) {
           return podcast;
         } else {
-          throw new Error("Post not found");
+          throw new Error("podcast not found");
         }
       } catch (err) {
         throw new Error(err);
       }
     },
+
     chapters: () => Chapter.findById(postId),
   },
   Mutation: {
