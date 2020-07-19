@@ -1,10 +1,8 @@
-var randoms = [...Array(4)].map(() => Math.floor(Math.random() * 9));
+const data = require("./src/asset/Podgroups.json");
 
-console.log(randoms);
+console.log(data);
 
-var Mystring='123,234,345';
-var output = Mystring.split(',');
-console.log(output)
-
-var output_with_qoutes = "'" + output.join("','") + "'";
-console.log(output_with_qoutes);
+data.map((item)=>{
+    console.log(item.category);
+    
+})

@@ -1,0 +1,32 @@
+[
+  {
+    "category": "business",
+    "urls": [
+      "https://feeds.megaphone.fm/business-unusual-with-barbara-corcoran",
+      "https://rss.art19.com/business-casual",
+      "https://www.spreaker.com/show/1946977/episodes/feed",
+      "https://businessandbiceps.libsyn.com/rss"
+    ]
+  },
+  {
+    "category": "science",
+    "urls": [
+      "http://feeds.feedburner.com/iTunesPodcastTTScienceMedicine",
+      "https://feeds.megaphone.fm/sciencevs",
+      "http://feeds.wnyc.org/science-friday/",
+      "https://www.sciencemag.org/rss/podcast.xml",
+      "https://www.omnycontent.com/d/playlist/aaea4e69-af51-495e-afc9-a9760146922b/09524ad3-9a20-4a7a-9316-aadc0009ee0c/d93e7b31-7ec4-454e-b940-aadc0009ee15/podcast.rss",
+      "https://feeds.publicradio.org/public_feeds/brains-on/itunes/rss",
+      "https://podcasts.files.bbci.co.uk/p01gyd7j.rss",
+      "https://www.scientificamerican.com/sciam/xml/iTunes.cfm?id=science-talk"
+    ]
+  },
+  {
+    "category": "health",
+    "urls": [
+      "http://feeds.feedburner.com/iTunesPodcastTTHealth",
+      "https://feeds.npr.org/510340/podcast.xml",
+      "https://anchor.fm/s/baf741c/podcast/rss"
+    ]
+  }
+]

@@ -1,5 +1,7 @@
 const PodGroup = require("../models/PodGroup");
 const Podcast = require("../models/Podcast");
+const feedURLs = require("../asset/Podgroups.json");
+
 
 let Parser = require("rss-parser");
 const { split } = require("lodash");
@@ -84,9 +86,9 @@ module.exports = {
 
       const podcasts =  await Podcast.insertMany(newPodcasts);
 
-      console.log(podcasts);
+      console.log("Inputed Podcast",podcasts);
 
-      newPodcasts.map(async (podcast) => {
+      podcasts.map(async (podcast) => {
         await PodGroup.updateOne(PodGroup.findOne({ rssURL: rssURL }), {
           $push: { podcasts: podcast },
         });
